@@ -20,6 +20,8 @@ var config = {
   }
 };
 
+const babelConfig = {presets: ["es2015", "react"]};
+
 //Start a local dev server
 gulp.task('connect', function() {
   connect.server({
@@ -46,6 +48,7 @@ gulp.task('html', function() {
 gulp.task('js', function() {
 	browserify(config.paths.mainJs)
 		.transform(reactify)
+		.transform("babelify", babelConfig)
 		.bundle()
 		.on('error', console.error.bind(console))
 		.pipe(source('bundle.js'))

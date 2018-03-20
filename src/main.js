@@ -1,3 +1,5 @@
-var App = console.log("hi");
+var App = () => {
+  return console.log("hi");
+};
 
-module.exports = App;
+module.exports = App();
