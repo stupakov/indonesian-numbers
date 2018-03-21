@@ -13,12 +13,31 @@ const digits = {
   9: "sembilan",
 }
 
+// for numbers 0 < n <= 999
 const divisors = {
   0:  undefined,
   1: "puluh",
   2: "ratus",
   3: "ribu",
-  5: "juta"
+}
+
+const thousands = {
+  0: undefined,
+  1: "ribu",
+  2: "juta",
+  3: "milyar",
+}
+
+const digit = (num) => {
+  return digits[num];
+}
+
+const divisor = (num) => {
+  return divisors[num];
+}
+
+const thousand = (num) => {
+  return thousands[num];
 }
 
 // 2,345,678
@@ -32,11 +51,11 @@ const divisors = {
 //        70 (7 x 10)
 //         8
 
-const digit = (num) => {
-  return digits[num];
-}
 
-const number = (num) => {
+// takes a number between 0 and 999,999,999,999 and returns
+// a string with the name of that number in Bahasa Indonesia
+
+const numToWords = (num) => {
   // special case for zero
   if (num === 0) {
     return "nol"
@@ -50,11 +69,11 @@ const number = (num) => {
   while (num > 0) {
     var lsd = num % 10;
     num = Math.floor(num / 10);
-    // console.log(digit(lsd), divisors[count]);
+    // console.log(digit(lsd), divisor(count));
 
     if (lsd != 0) {
-      if (divisors[count] !== undefined) {
-        digits.push(divisors[count])
+      if (divisor(count) !== undefined) {
+        digits.push(divisor(count))
       }
       digits.push(digit(lsd))
     }
@@ -172,7 +191,7 @@ const findSubArray = (array, query) => {
 }
 
 module.exports = {
-  number,
+  numToWords,
   combineDigits,
   findSubArray
 };
