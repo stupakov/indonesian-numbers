@@ -6,16 +6,16 @@ var open = require('gulp-open'); // opens url in a web browser
 var browserify = require('browserify'); // bundles js
 var reactify = require('reactify'); // transforms jsx to js
 var source = require('vinyl-source-stream'); // use conventional text streams with gulp
-
+var lint = require('gulp-eslint');
 
 
 var config = {
-  port: 9005,
+  port: 9006,
   devBaseUrl: 'http://localhost',
   paths: {
     html: './src/*.html',
     js: './js/**/*.js',
-		mainJs: './src/main.js',
+    mainJs: './src/main.js',
     dist: './dist'
   }
 };
@@ -57,9 +57,15 @@ gulp.task('js', function() {
 
 })
 
+gulp.task('lint', function() {
+  return gulp.src(config.paths.js)
+    .pipe(lint({config: 'eslint.config.json'}))
+    .pipe(lint.format());
+})
+
 gulp.task('watch', function() {
-	gulp.watch(config.paths.html, ['html']);
-	gulp.watch(config.paths.js, ['html']);
+  gulp.watch(config.paths.html, ['html']);
+  gulp.watch(config.paths.js, ['js', 'lint']);
 });
 
-gulp.task('default', ['html', 'js', 'open', 'watch']);
+gulp.task('default', ['html', 'js', 'lint', 'open', 'watch']);
