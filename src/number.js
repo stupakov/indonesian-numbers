@@ -1,32 +1,33 @@
 
 // TODO: rewrite this program in clojure
 
-const digits = {
-  1: "satu",
-  2: "dua",
-  3: "tiga",
-  4: "empat",
-  5: "lima",
-  6: "enam",
-  7: "tujuh",
-  8: "delapan",
-  9: "sembilan",
-}
+const digits = [
+  "nol",
+  "satu",
+  "dua",
+  "tiga",
+  "empat",
+  "lima",
+  "enam",
+  "tujuh",
+  "delapan",
+  "sembilan",
+]
 
 // for numbers 0 < n <= 999
-const divisors = {
-  0:  undefined,
-  1: "puluh",
-  2: "ratus",
-  3: "ribu",
-}
+const divisors = [
+   undefined,
+  "puluh",
+  "ratus",
+  "ribu",
+]
 
-const thousands = {
-  0: undefined,
-  1: "ribu",
-  2: "juta",
-  3: "milyar",
-}
+const thousands = [
+  undefined,
+  "ribu",
+  "juta",
+  "milyar",
+]
 
 const digit = (num) => {
   return digits[num];
