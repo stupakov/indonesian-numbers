@@ -1,8 +1,7 @@
 ## TODO
 
-- add css processing
-- js and jsx plugins for vim
 - add react
+- js and jsx plugins for vim
 - build simple text box
 - validation of typing a known string
 - randomly generate number and get its indonesian name
