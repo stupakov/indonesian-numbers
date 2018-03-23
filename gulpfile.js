@@ -15,7 +15,7 @@ var config = {
   devBaseUrl: 'http://localhost',
   paths: {
     html: './src/*.html',
-    js: './js/**/*.js',
+    js: './src/**/*.js',
     css: [
 	    "node_modules/bootstrap/dist/css/bootstrap.min.css",
 	    "node_modules/bootstrap/dist/css/bootstrap-theme.min.css"
@@ -70,7 +70,7 @@ gulp.task('css', function() {
 
 gulp.task('lint', function() {
   return gulp.src(config.paths.js)
-    .pipe(lint({config: 'eslint.config.json'}))
+    .pipe(lint({configFile: 'eslint.config.json'}))
     .pipe(lint.format());
 })
 
