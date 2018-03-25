@@ -9,7 +9,8 @@ class Home extends React.Component {
 		return {
 			number,
 			numberAsString: NumberConverter.numToWords(number),
-			guess: ""
+			guess: "",
+			revealAnswer: false
 		}
 	}
 
@@ -28,6 +29,12 @@ class Home extends React.Component {
 		});
   }
 
+	revealAnswer() {
+		this.setState({
+			revealAnswer: true
+		});
+	}
+
 	render() {
 		var guessInput = (<input
 		  className="form-control form-control-lg"
@@ -36,6 +43,15 @@ class Home extends React.Component {
 			value={this.state.guess}
 			onChange={(e) => this.handleGuessChange(e)}
 		/>);
+
+		var revealButton = this.state.revealAnswer ?
+			undefined :
+			(<button 
+				className="btn"
+				type="button"
+				onClick={() => this.revealAnswer()}>
+				Reveal answer
+			</button>);
 
 		return (
 			<div className="jumbotron">
@@ -50,13 +66,22 @@ class Home extends React.Component {
 				{guessInput}
 				<NumberGuess correctAnswer={this.state.numberAsString} guess={this.state.guess} />
 
-				<button className="reset-button" onClick={() => this.updateNumber()}>
-					Generate new number
-				</button>
 
 				<div className="number-string">
-					{this.state.numberAsString}
+					{this.state.revealAnswer ? this.state.numberAsString : "" }
 				</div>
+
+				<form>
+					<div className="form-group">
+						<button
+							className="btn"
+							type="button"
+							onClick={() => this.updateNumber() }>
+							Generate new number
+						</button>
+						{ revealButton }
+					</div>
+				</form>
 			</div>
 		);
 	}

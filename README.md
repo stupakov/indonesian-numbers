@@ -1,6 +1,5 @@
 ## TODO
 
-- button to reveal the answer
 - style it!
 - numbers over 9999
 - rename private functions to start with underscore
