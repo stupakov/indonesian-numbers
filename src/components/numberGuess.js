@@ -10,10 +10,12 @@ class NumberGuess extends React.Component {
 			<div className="guess">
 				<span className="guess-correct text-success">{formattedGuess.correct}</span>
 				<span className="guess-incorrect text-danger">{formattedGuess.incorrect}</span>
-				<div className="guess-complete">{
-					formattedGuess.complete ? <span className="border border-success text-success font-weight-bold">Correct!</span> : "..."
-				}</div>
-		</div>
+				{
+					formattedGuess.complete ? <div className="guess-complete alert alert-success">
+						<span className="font-weight-bold">Correct!</span>
+					</div> : <span>...</span>
+				}
+			</div>
 		);
 	}
 };

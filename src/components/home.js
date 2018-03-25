@@ -8,7 +8,8 @@ class Home extends React.Component {
 
 		return {
 			number,
-			numberAsString: NumberConverter.numToWords(number)
+			numberAsString: NumberConverter.numToWords(number),
+			guess: ""
 		}
 	}
 
@@ -21,7 +22,21 @@ class Home extends React.Component {
 		this.state = this.getNewState();
 	}
 
+  handleGuessChange(event) {
+    this.setState({
+			guess: event.target.value
+		});
+  }
+
 	render() {
+		var guessInput = (<input
+		  className="form-control form-control-lg"
+		  autoFocus="autofocus"
+			type="text"
+			value={this.state.guess}
+			onChange={(e) => this.handleGuessChange(e)}
+		/>);
+
 		return (
 			<div className="jumbotron">
 				<h2>
@@ -36,7 +51,8 @@ class Home extends React.Component {
 				<div className="number-string">
 					{this.state.numberAsString}
 				</div>
-				<NumberGuess correctAnswer="abc" guess="abc" />
+				{guessInput}
+				<NumberGuess correctAnswer={this.state.numberAsString} guess={this.state.guess} />
 			</div>
 		);
 	}
