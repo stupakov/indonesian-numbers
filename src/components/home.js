@@ -1,6 +1,6 @@
 const React = require('react');
-const PropTypes = require('prop-types');
 const NumberConverter = require('../number');
+const NumberGuess = require('./numberGuess');
 
 class Home extends React.Component {
 	getNewState() {
@@ -36,17 +36,10 @@ class Home extends React.Component {
 				<div className="number-string">
 					{this.state.numberAsString}
 				</div>
+				<NumberGuess correctAnswer="abc" guess="abc" />
 			</div>
 		);
 	}
 };
-
-// Home.propTypes = {
-// 	numberAsString: PropTypes.string
-// }
-
-// Home.defaultProps = {
-// 	numberAsString: "two hundred"
-// }
 
 module.exports = Home;
