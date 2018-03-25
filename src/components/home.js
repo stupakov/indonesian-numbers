@@ -47,15 +47,15 @@ class Home extends React.Component {
 		var revealButton = this.state.revealAnswer ?
 			undefined :
 			(<button 
-				className="btn"
+				className="btn btn-outline-secondary btn-lg"
 				type="button"
 				onClick={() => this.revealAnswer()}>
 				Reveal answer
 			</button>);
 
 		return (
-			<div className="jumbotron">
-				<div className="number">
+			<div className="container">
+				<div className="number my-5">
 					Bagaimana bilang
 					<span className="display-3">
 					  {" " + this.state.number + " "}
@@ -63,18 +63,22 @@ class Home extends React.Component {
 					di Bahasa Indonesia?
 				</div>
 
-				{guessInput}
-				<NumberGuess correctAnswer={this.state.numberAsString} guess={this.state.guess} />
+				<div className="mb-5">
+					{guessInput}
+				</div>
 
+				<div className="mb-5">
+					<NumberGuess correctAnswer={this.state.numberAsString} guess={this.state.guess} />
+				</div>
 
-				<div className="number-string">
+				<div className="number-string mb-3">
 					{this.state.revealAnswer ? this.state.numberAsString : "" }
 				</div>
 
 				<form>
 					<div className="form-group">
 						<button
-							className="btn"
+							className="btn btn-primary btn-lg mr-2"
 							type="button"
 							onClick={() => this.updateNumber() }>
 							Generate new number
