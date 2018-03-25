@@ -1,22 +1,24 @@
 const React = require('react');
 const PropTypes = require('prop-types');
+const NumberConverter = require('../number');
 
 class Home extends React.Component {
-	getNewNumber() {
-		return Math.floor(Math.random() * 1000);
+	getNewState() {
+	  var number = Math.floor(Math.random() * 1000);
+
+		return {
+			number,
+			numberAsString: NumberConverter.numToWords(number)
+		}
 	}
 
 	updateNumber() {
-		this.setState({
-			number: this.getNewNumber()
-		});
+		this.setState(this.getNewState());
 	}
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			number: this.getNewNumber()
-		};
+		this.state = this.getNewState();
 	}
 
 	render() {
@@ -32,19 +34,19 @@ class Home extends React.Component {
 					{this.state.number}
 				</div>
 				<div className="number-string">
-					{this.props.numberAsString}
+					{this.state.numberAsString}
 				</div>
 			</div>
 		);
 	}
 };
 
-Home.propTypes = {
-	numberAsString: PropTypes.string
-}
+// Home.propTypes = {
+// 	numberAsString: PropTypes.string
+// }
 
-Home.defaultProps = {
-	numberAsString: "two hundred"
-}
+// Home.defaultProps = {
+// 	numberAsString: "two hundred"
+// }
 
 module.exports = Home;
