@@ -39,20 +39,24 @@ class Home extends React.Component {
 
 		return (
 			<div className="jumbotron">
-				<h2>
-					NUMBERS
-				</h2>
+				<div className="number">
+					Bagaimana bilang
+					<span className="display-3">
+					  {" " + this.state.number + " "}
+					</span>
+					di Bahasa Indonesia?
+				</div>
+
+				{guessInput}
+				<NumberGuess correctAnswer={this.state.numberAsString} guess={this.state.guess} />
+
 				<button className="reset-button" onClick={() => this.updateNumber()}>
 					Generate new number
 				</button>
-				<div className="number">
-					{this.state.number}
-				</div>
+
 				<div className="number-string">
 					{this.state.numberAsString}
 				</div>
-				{guessInput}
-				<NumberGuess correctAnswer={this.state.numberAsString} guess={this.state.guess} />
 			</div>
 		);
 	}
