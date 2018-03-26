@@ -59,7 +59,6 @@ gulp.task('js', function() {
 		.pipe(source('bundle.js'))
 		.pipe(gulp.dest(config.paths.dist + '/scripts'))
 		.pipe(connect.reload())
-
 })
 
 gulp.task('css', function() {
@@ -79,4 +78,5 @@ gulp.task('watch', function() {
   gulp.watch(config.paths.js, ['js', 'lint']);
 });
 
-gulp.task('default', ['html', 'js', 'css', 'lint', 'open', 'watch']);
+gulp.task('build', ['html', 'js', 'css']);
+gulp.task('default', ['build', 'lint', 'open', 'watch']);

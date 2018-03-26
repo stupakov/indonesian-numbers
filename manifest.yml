@@ -1,0 +1,7 @@
+---
+applications:
+  - name: angka
+    instances: 1
+    memory: 64MB
+    buildpack: staticfile_buildpack
+    path: dist
