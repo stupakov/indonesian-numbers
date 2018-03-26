@@ -30,7 +30,7 @@ class Home extends React.Component {
 
   handleGuessChange(event) {
     this.setState({
-			guess: event.target.value
+			guess: event.target.value.toLowerCase()
 		});
   }
 
