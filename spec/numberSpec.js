@@ -51,40 +51,73 @@ describe("numToWords()", function() {
     expect(numToWords(5000)).toEqual("lima ribu");
     expect(numToWords(9999)).toEqual("sembilan ribu sembilan ratus sembilan puluh sembilan");
 
-    // expect(numToWords(10000)).toEqual("sepuluh ribu");
-    // expect(numToWords(10001)).toEqual("sepuluh ribu satu");
-    // expect(numToWords(10010)).toEqual("sepuluh ribu sepuluh");
-    // expect(numToWords(10100)).toEqual("sepuluh ribu seratus");
-    // expect(numToWords(11000)).toEqual("sebelas ribu");
+    expect(numToWords(10000)).toEqual("sepuluh ribu");
+    expect(numToWords(10001)).toEqual("sepuluh ribu satu");
+    expect(numToWords(10010)).toEqual("sepuluh ribu sepuluh");
+    expect(numToWords(10100)).toEqual("sepuluh ribu seratus");
+    expect(numToWords(11000)).toEqual("sebelas ribu");
+
+    expect(numToWords(11001)).toEqual("sebelas ribu satu");
+    expect(numToWords(11010)).toEqual("sebelas ribu sepuluh");
+    expect(numToWords(11100)).toEqual("sebelas ribu seratus");
+
+    expect(numToWords(11101)).toEqual("sebelas ribu seratus satu");
+    expect(numToWords(11110)).toEqual("sebelas ribu seratus sepuluh");
+    expect(numToWords(11111)).toEqual("sebelas ribu seratus sebelas");
+
+    expect(numToWords(100000)).toEqual("seratus ribu");
+    expect(numToWords(100001)).toEqual("seratus ribu satu");
+    expect(numToWords(100010)).toEqual("seratus ribu sepuluh");
+    expect(numToWords(100100)).toEqual("seratus ribu seratus");
+    expect(numToWords(101000)).toEqual("seratus satu ribu");
+    expect(numToWords(110000)).toEqual("seratus sepuluh ribu");
+    expect(numToWords(121000)).toEqual("seratus dua puluh satu ribu");
+
+    expect(numToWords(1000000)).toEqual("sejuta");
+    expect(numToWords(1000001)).toEqual("sejuta satu");
+    expect(numToWords(1000010)).toEqual("sejuta sepuluh");
+    expect(numToWords(1000100)).toEqual("sejuta seratus");
+    expect(numToWords(1001000)).toEqual("sejuta seribu");
+    expect(numToWords(1010000)).toEqual("sejuta sepuluh ribu");
+    expect(numToWords(1100000)).toEqual("sejuta seratus ribu");
+    expect(numToWords(1000011)).toEqual("sejuta sebelas");
+    expect(numToWords(1000110)).toEqual("sejuta seratus sepuluh");
+    expect(numToWords(1001100)).toEqual("sejuta seribu seratus");
+    expect(numToWords(1011000)).toEqual("sejuta sebelas ribu");
+    expect(numToWords(1110000)).toEqual("sejuta seratus sepuluh ribu");
+
+    expect(numToWords(1111111)).toEqual("sejuta seratus sebelas ribu seratus sebelas");
+    expect(numToWords(11111111)).toEqual("sebelas juta seratus sebelas ribu seratus sebelas");
+    expect(numToWords(111111111)).toEqual("seratus sebelas juta seratus sebelas ribu seratus sebelas");
   });
 });
 
+// describe("combineDigits()", () => {
+//   it("returns the unchanged list if there is no simplification", () => {
+//     expect(combineDigits(["seratus"])).toEqual(["seratus"]);
+//     expect(combineDigits(["dua", "puluh"])).toEqual(["dua", "puluh"]);
+//   });
 
-describe("combineDigits()", () => {
-  it("returns the unchanged list if there is no simplification", () => {
-    expect(combineDigits(["seratus"])).toEqual(["seratus"]);
-    expect(combineDigits(["dua", "puluh"])).toEqual(["dua", "puluh"]);
-  });
+//   it("returns the simplified version of the given set of digits", () => {
+//     expect(combineDigits(["satu", "puluh"])).toEqual(["sepuluh"]);
+//     expect(combineDigits(["satu", "ratus"])).toEqual(["seratus"]);
+//     expect(combineDigits(["se", "ribu"])).toEqual(["seribu"]);
+//     expect(combineDigits(["se", "juta"])).toEqual(["sejuta"]);
 
-  it("returns the simplified version of the given set of digits", () => {
-    expect(combineDigits(["satu", "puluh"])).toEqual(["sepuluh"]);
-    expect(combineDigits(["satu", "ratus"])).toEqual(["seratus"]);
-    expect(combineDigits(["satu", "ribu"])).toEqual(["seribu"]);
-    expect(combineDigits(["satu", "juta"])).toEqual(["sejuta"]);
+//     expect(combineDigits(["sepuluh", "satu"])).toEqual(["sebelas"]);
+//     expect(combineDigits(["sepuluh", "dua"])).toEqual(["dua", "belas"]);
+//     expect(combineDigits(["sepuluh", "tiga"])).toEqual(["tiga", "belas"]);
+//     expect(combineDigits(["sepuluh", "empat"])).toEqual(["empat", "belas"]);
+//     expect(combineDigits(["sepuluh", "lima"])).toEqual(["lima", "belas"]);
+//     expect(combineDigits(["sepuluh", "enam"])).toEqual(["enam", "belas"]);
+//     expect(combineDigits(["sepuluh", "tujuh"])).toEqual(["tujuh", "belas"]);
+//     expect(combineDigits(["sepuluh", "delapan"])).toEqual(["delapan", "belas"]);
+//     expect(combineDigits(["sepuluh", "sembilan"])).toEqual(["sembilan", "belas"]);
 
-    expect(combineDigits(["sepuluh", "satu"])).toEqual(["sebelas"]);
-    expect(combineDigits(["sepuluh", "dua"])).toEqual(["dua", "belas"]);
-    expect(combineDigits(["sepuluh", "tiga"])).toEqual(["tiga", "belas"]);
-    expect(combineDigits(["sepuluh", "empat"])).toEqual(["empat", "belas"]);
-    expect(combineDigits(["sepuluh", "lima"])).toEqual(["lima", "belas"]);
-    expect(combineDigits(["sepuluh", "enam"])).toEqual(["enam", "belas"]);
-    expect(combineDigits(["sepuluh", "tujuh"])).toEqual(["tujuh", "belas"]);
-    expect(combineDigits(["sepuluh", "delapan"])).toEqual(["delapan", "belas"]);
-    expect(combineDigits(["sepuluh", "sembilan"])).toEqual(["sembilan", "belas"]);
-
-    expect(combineDigits(["satu", "puluh", "dua"])).toEqual(["dua", "belas"]);
-  });
-});
+//     expect(combineDigits(["satu", "puluh", "dua"])).toEqual(["dua", "belas"]);
+//     expect(combineDigits(["satu", "puluh", "satu", "ribu"])).toEqual(["sebelas", "ribu"]);
+//   });
+// });
 
 
 describe("findSubArray()", () => {

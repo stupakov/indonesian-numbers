@@ -62,45 +62,68 @@ const numToWords = (num) => {
     return "nol"
   }
 
-  // console.log(">>>>>", num);
+  let substrings = [];
+  let thousandsCount = 0;
 
+  while(num > 0) {
+    var lsds = num % 1000;
+    num = Math.floor(num / 1000);
+
+    if (lsds != 0) {
+      if (thousand(thousandsCount) !== undefined) {
+	substrings.push(thousand(thousandsCount));
+      }
+      substrings.push(... _numLessThanAThousandToWords(lsds).reverse());
+    }
+    thousandsCount += 1;
+  }
+
+  return combineDigits(substrings.reverse(), intraGroupReductions).join(" ");
+}
+
+const _arraysEqual = (a, b) => {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length != b.length) return false;
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
+const _numLessThanAThousandToWords = (num) => {
   var count = 0;
-  var digits = [];
+  var words = [];
 
+  // process digits from least to most significant
   while (num > 0) {
     var lsd = num % 10;
     num = Math.floor(num / 10);
-    // console.log(digit(lsd), divisor(count));
 
     if (lsd != 0) {
       if (divisor(count) !== undefined) {
-        digits.push(divisor(count))
+        words.push(divisor(count))
       }
-      digits.push(digit(lsd))
+      words.push(digit(lsd))
     }
 
     count++;
   }
 
-  return combineDigits(digits.reverse()).join(" ");
+  if (_arraysEqual(words, ["satu"])) {
+    return ["se"];
+  }
+
+  // returns array of words representing the number
+  return combineDigits(words.reverse(), interGroupReductions);
 }
 
-const reductions = [
+// order matters. Apply the to ones first.
+const interGroupReductions = [
   {
     from: ["satu", "puluh"],
       to: ["sepuluh"]
-  },
-  {
-    from: ["satu", "ratus"],
-      to: ["seratus"]
-  },
-  {
-    from: ["satu", "ribu"],
-      to: ["seribu"]
-  },
-  {
-    from: ["satu", "juta"],
-      to: ["sejuta"]
   },
   {
     from: ["sepuluh", "satu"],
@@ -137,11 +160,34 @@ const reductions = [
   {
     from: ["sepuluh", "sembilan"],
       to: ["sembilan", "belas"]
-  }
+  },
+  {
+    from: ["satu", "ratus"],
+      to: ["seratus"]
+  },
+];
+
+const intraGroupReductions = [
+  {
+    from: ["se", "ribu"],
+      to: ["seribu"]
+  },
+  {
+    from: ["se", "juta"],
+      to: ["sejuta"]
+  },
+  {
+    from: ["se", "milyar"],
+      to: ["semilyar"]
+  },
+  {
+    from: ["se"],
+      to: ["satu"]
+  },
 ];
 
 // export only for testing
-const combineDigits = (list) => {
+const combineDigits = (list, reductions) => {
   // recursive.
   //
   // loop over reductions
@@ -151,7 +197,9 @@ const combineDigits = (list) => {
 
   var applyingReductions = false;
 
-  reductions.forEach( (reduction) => {
+  // use some so that we can stop iterating over the reductions once we find one to apply.
+  // only apply one reduction per iteration so they get applied in the order they are defined
+  reductions.some( (reduction) => {
     var indexOfReducibleSequence = findSubArray(list, reduction.from);
 
     if (indexOfReducibleSequence !== -1) {
@@ -159,12 +207,14 @@ const combineDigits = (list) => {
       list.splice(indexOfReducibleSequence, reduction.from.length, ...reduction.to)
 
       applyingReductions = true;
+
+      return true;
     }
   })
 
   if (applyingReductions) {
     // iterate again in case we need to apply another set of reductions
-    return combineDigits(list);
+    return combineDigits(list, reductions);
   }
 
   // none were applied; return the list as-is.

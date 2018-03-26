@@ -4,7 +4,12 @@ const NumberGuess = require('./numberGuess');
 
 class Home extends React.Component {
 	getNewState() {
-	  var number = Math.floor(Math.random() * 1000);
+		const getRandomElement = (arr) => {
+			return arr[Math.floor(Math.random() * arr.length)];
+		}
+
+		let maximum = getRandomElement([999, 999999, 999999999]);
+	  let number = Math.floor(Math.random() * maximum);
 
 		return {
 			number,
@@ -58,7 +63,7 @@ class Home extends React.Component {
 				<div className="number my-5">
 					Bagaimana bilang
 					<span className="display-3">
-					  {" " + this.state.number + " "}
+					  {" " + this.state.number.toLocaleString() + " "}
 					</span>
 					di Bahasa Indonesia?
 				</div>
